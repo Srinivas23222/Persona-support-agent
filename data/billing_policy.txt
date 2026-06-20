@@ -1,0 +1,7 @@
+Billing Policy
+
+Refund requests are reviewed within 5 business days.
+
+Customers can download invoices from the billing dashboard.
+
+Subscription changes take effect at the next billing cycle.

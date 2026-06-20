@@ -1,0 +1,7 @@
+Subscription FAQ
+
+Users can upgrade or downgrade plans from Account Settings.
+
+Premium plans provide API access and advanced analytics.
+
+Cancellation can be performed anytime.

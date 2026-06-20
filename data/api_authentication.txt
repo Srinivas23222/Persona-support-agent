@@ -1,0 +1,15 @@
+API Authentication Troubleshooting
+
+Common causes:
+
+1. Invalid API key.
+2. Expired access token.
+3. Incorrect API endpoint.
+4. Missing Authorization header.
+
+Resolution:
+
+1. Verify API credentials.
+2. Generate a new token.
+3. Check request headers.
+4. Review server logs.

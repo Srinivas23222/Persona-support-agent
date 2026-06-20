@@ -1,0 +1,351 @@
+# Persona-Aware Customer Support Agent
+
+## Project Overview
+
+This project is an AI-powered customer support agent that adapts its responses based on the customer's persona. The system detects the user's persona, retrieves relevant information from a knowledge base using Retrieval-Augmented Generation (RAG), generates persona-specific responses, and escalates unresolved or sensitive issues to a human support agent.
+
+### Supported Personas
+
+1. Technical Expert
+2. Frustrated User
+3. Business Executive
+
+### Key Features
+
+* Persona Detection
+* Retrieval-Augmented Generation (RAG)
+* Adaptive Response Generation
+* Human Escalation Workflow
+* Human Handoff Summary
+* Streamlit Web Interface
+
+---
+
+# Tech Stack
+
+## Programming Language
+
+* Python 3.12
+
+## Frameworks and Libraries
+
+* Streamlit
+* LangChain
+* ChromaDB
+* Sentence Transformers
+* HuggingFace Embeddings
+* PyPDF
+* Python Dotenv
+
+## Embedding Model
+
+* sentence-transformers/all-MiniLM-L6-v2
+
+## Vector Database
+
+* ChromaDB
+
+---
+
+# Architecture
+
+User Query
+↓
+Persona Detection
+↓
+Knowledge Retrieval (RAG)
+↓
+Adaptive Response Generation
+↓
+Escalation Check
+↓
+Human Handoff Summary
+
+---
+
+# Persona Detection Strategy
+
+The system uses rule-based classification to identify the user persona.
+
+### Technical Expert
+
+Keywords:
+
+* API
+* Token
+* Configuration
+* Logs
+* Endpoint
+
+### Frustrated User
+
+Keywords:
+
+* Frustrated
+* Angry
+* Nothing works
+* Urgent
+* Terrible
+
+### Business Executive
+
+Keywords:
+
+* Business
+* Impact
+* Operations
+* Revenue
+* Management
+
+The detected persona is displayed in the user interface.
+
+---
+
+# RAG Pipeline Design
+
+## Document Loading
+
+Support documents are stored in the data directory.
+
+Supported formats:
+
+* TXT
+* PDF
+
+## Chunking Strategy
+
+RecursiveCharacterTextSplitter
+
+* Chunk Size: 500
+* Chunk Overlap: 50
+
+## Embedding Generation
+
+HuggingFace Embeddings
+
+Model:
+
+sentence-transformers/all-MiniLM-L6-v2
+
+## Vector Database
+
+ChromaDB stores document embeddings for semantic search.
+
+## Retrieval Strategy
+
+Top-K Similarity Search
+
+K = 3
+
+The most relevant chunks are retrieved and used as context for response generation.
+
+---
+
+# Adaptive Response Generation
+
+## Technical Expert
+
+Response Style:
+
+* Detailed
+* Technical
+* Root Cause Analysis
+* Troubleshooting Steps
+
+## Frustrated User
+
+Response Style:
+
+* Empathetic
+* Reassuring
+* Action-Oriented
+* Simple Language
+
+## Business Executive
+
+Response Style:
+
+* Concise
+* Business Impact Focused
+* Minimal Technical Details
+
+---
+
+# Escalation Logic
+
+The conversation is escalated when:
+
+* No relevant documents are found
+* Billing-related issues are detected
+* Legal issues are detected
+* Refund requests are detected
+* The issue cannot be resolved through the knowledge base
+
+Example Keywords:
+
+* billing
+* legal
+* refund
+
+---
+
+# Human Handoff Summary
+
+When escalation occurs, the system generates a structured summary containing:
+
+* Detected Persona
+* User Issue
+* Retrieved Documents
+* Recommended Next Steps
+
+Example:
+
+{
+"persona": "Frustrated User",
+"issue": "Unable to reset password",
+"documents_used": [
+"password_reset.txt"
+],
+"recommendation": "Human support required"
+}
+
+---
+
+# Project Structure
+
+persona-support-agent/
+
+├── app.py
+
+├── data/
+
+│   ├── password_reset.txt
+
+│   ├── api_authentication.txt
+
+│   ├── billing_policy.txt
+
+│   └── faq.txt
+
+├── src/
+
+│   ├── **init**.py
+
+│   ├── persona.py
+
+│   ├── rag.py
+
+│   ├── escalation.py
+
+│   └── handoff.py
+
+├── vector_store/
+
+└── README.md
+
+---
+
+# Installation
+
+## Clone Repository
+
+git clone <repository-url>
+
+cd persona-support-agent
+
+## Create Virtual Environment
+
+python -m venv venv
+
+## Activate Virtual Environment
+
+Windows:
+
+venv\Scripts\activate
+
+## Install Dependencies
+
+pip install -r requirements.txt
+
+---
+
+# Run Application
+
+streamlit run app.py
+
+The application will start at:
+
+http://localhost:8501
+
+---
+
+# Example Queries
+
+### Technical Expert
+
+Can you explain the API authentication failure and provide troubleshooting steps?
+
+### Frustrated User
+
+I've tried resetting my password multiple times and nothing works.
+
+### Business Executive
+
+How does this issue impact operations and when will it be resolved?
+
+### Escalation Example
+
+I need a refund for an incorrect billing charge.
+
+### Password Issue
+
+I forgot my password and cannot access my account.
+
+---
+
+# Environment Variables
+
+Currently no API key is required because the project uses local HuggingFace embeddings.
+
+If using OpenAI or Gemini:
+
+OPENAI_API_KEY=your_key
+
+or
+
+GOOGLE_API_KEY=your_key
+
+---
+
+# Known Limitations
+
+* Persona detection is keyword-based.
+* Limited support document set.
+* No conversation memory.
+* Basic escalation rules.
+* No confidence scoring.
+
+---
+
+# Future Improvements
+
+* LLM-based persona classification
+* Multi-turn conversation memory
+* LangGraph workflow orchestration
+* Confidence-based escalation
+* Analytics dashboard
+* Human approval workflow
+
+---
+
+# Demo
+
+The application demonstrates:
+
+* Persona Detection
+* Knowledge Retrieval
+* Adaptive Responses
+* Escalation Handling
+* Human Handoff Generation
+
+Built as part of the Adsparkx AI Engineering Assessment.
