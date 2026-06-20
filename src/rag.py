@@ -1,19 +1,16 @@
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
 import os
 
-def load_vector_store():
 
+def load_vector_store():
     docs = []
 
     for file in os.listdir("data"):
-
         path = os.path.join("data", file)
-
         loader = TextLoader(path)
-
         docs.extend(loader.load())
 
     splitter = RecursiveCharacterTextSplitter(
@@ -27,7 +24,7 @@ def load_vector_store():
         model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
 
-    db = Chroma.from_documents(
+    db = FAISS.from_documents(
         chunks,
         embeddings
     )
